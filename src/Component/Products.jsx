@@ -1,5 +1,5 @@
 import React,{useState,useEffect}from 'react';
-
+import Skeleton from "react-loading-skeleton";
 const Products=()=>{
 
 
@@ -25,31 +25,52 @@ const Products=()=>{
         
         getProducts();
     },[]);
-    const Loading =()=>{return(<>Loading...</>)}
+    const filterProduct=(id)=>{
+
+        const updateList=data.filter((x)=> x.category === id);
+        setFilter(updateList);
+    }
+    //React loading skeleton is a JavaScript library that allows you to create these beautiful, animated loading skeletons
+    const Loading =()=>{return(<>
+    
+    <div className="col-md-3">
+        <Skeleton height={350}/>
+    </div>
+        
+    <div className="col-md-3">
+        <Skeleton height={350}/>
+    </div>
+        
+    <div className="col-md-3">
+        <Skeleton height={350}/>
+    </div>
+        
+    <div className="col-md-3">
+        <Skeleton height={350}/>
+    </div>
+    </>)}
     const ShowProducts=()=>{
         return (<>
         <div className="buttons d-flex justify-content-center mb-5 pb-5">
-            <button className="btn btn-outline-dark me-2">All</button>
-            <button className="btn btn-outline-dark me-2">Category 1</button>
-            <button className="btn btn-outline-dark me-2">Category 2</button>
-            <button className="btn btn-outline-dark me-2">Category 3</button>
-            <button className="btn btn-outline-dark me-2">Category 4</button>
-            <button className="btn btn-outline-dark me-2">Category 5</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>setFilter(data)}>All</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>filterProduct("men's clothing")}>Category 1</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>filterProduct("women's clothing")}>Category 2</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>filterProduct("women's clothing")}>Category 3</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>filterProduct("jewelery")}>Category 4</button>
+            <button className="btn btn-outline-dark me-2"onClick={()=>filterProduct("electronics")}>Category 5</button>
         </div>
         {filter.map((product)=>{return(<>
-            <div className="col-md-3">
+            <div className="col-md-3 mb-4">
             <div class="card h-100 text-center p-4" key={product.id} >
-        <img src={product.image} class="card-img-top" alt={product.title}/>
+        <img src={product.image} class="card-img-top" alt={product.title} height="250px"/>
         <div class="card-body">
-        <h5 class="card-title">{product.title}</h5>
-        <p class="card-text">${product.price}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div></div>
+        <h5 class="card-title mb-0">{product.title.substring(0,20)}...</h5>
+        <p class="card-text lead fw-bold">${product.price}</p>
+        <a href="#" class="btn btn-outline-dark">Buy Now</a>
+  </div>
+  </div>
 </div>
-         </>)
-    
-    
-    })}
+</>)})}
         </>)
     }
     return (
