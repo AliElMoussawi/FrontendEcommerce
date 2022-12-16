@@ -2,7 +2,9 @@ import React from 'react'
 import {useSelector}from 'react-redux'
 const Checkout=()=>{
   const state =useSelector((state)=>state.handleCart)
+  var total=0;
   const itemList =(item)=>{
+    total=total+item.price;
     return(<li className="list-group-item d-flex justify-content-between lh-sm">
       <div>
         <h6 className="my-0">{item.title}</h6>
@@ -23,7 +25,7 @@ const Checkout=()=>{
           {state.map(itemList)}
           <li className="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>$20</strong>
+            <strong>$ {total}</strong>
           </li>
         </ul>
 
